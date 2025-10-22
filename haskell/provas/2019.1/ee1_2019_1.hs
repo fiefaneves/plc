@@ -26,9 +26,21 @@ Exemplos: localizar "abc" "xyz12abrt" ----> 0
           localizar "abc" "aaabrsabcfr" --> 7
           localizar "aab" "aacrabceaabc" -> 9
           localizar "" "aacrabceaabc" ----> 0
-localizar :: String -> String -> Int
 -}
+localizar :: String -> String -> Int
+localizar s1 s2 = contaPos s1 s2 1
+    where
+        contaPos _ "" _ = 0
+        contaPos "" _ _ = 0
+        contaPos pattern str@(s:ss) pos
+            | match pattern str = pos
+            | otherwise = contaPos pattern ss (pos+1)
 
+        match [] _ = True
+        match _ [] = False
+        match (x:xs) (y:ys)
+            | x == y    = match xs ys
+            | otherwise = False
 
 {-3) Uma fita infinita de papel pode ser representada por uma lista de caracteres. 
 Esta fita possui uma cabeça de leitura/escrita que le ou escreve na posição atual da fita. 
@@ -52,6 +64,18 @@ posicaofinal "abcdefghijklmno" [ParaFrente 5, Escreva 'x', ParaFrente 1]  ------
 posicaofinal "abcdefghijklmno" [] -------------------------------------------------------------------> 1
 posicaofinal :: String -> [Comando] -> Int 
 -}
+posicaofinal :: String -> [Comando] -> Int 
+posicaofinal _ [] = 1  -- Posição inicial é 1
+posicaofinal str (cmd:cmds) = case cmd of
+    ParaFrente n -> max 1 (1 + n) `seq` posicaofinalAux str cmds (1 + n)
+    ParaTras n   -> max 1 (1 - n) `seq` posicaofinalAux str cmds (max 1 (1 - n))
+    Escreva _    -> posicaofinalAux str cmds 1
+  where
+    posicaofinalAux _ [] pos = pos
+    posicaofinalAux str (c:cs) pos = case c of
+        ParaFrente n -> posicaofinalAux str cs (pos + n)
+        ParaTras n   -> posicaofinalAux str cs (max 1 (pos - n))
+        Escreva _    -> posicaofinalAux str cs pos
 
 
 {-3.2) (2.0) Escreva uma funcao que, dada uma lista de comandos, retorne o caracter da posicao final da cabeca de leitura, apos comandos.
@@ -62,9 +86,41 @@ interprete "abcdefghijklmno" [ParaFrente 5, Escreva 'x', ParaFrente 1]  --------
 interprete "abcdefghijklmno" [] -------------------------------------------------------------------> 'a'
 interprete :: String -> [Comando] -> Char
 -}
+interprete :: String -> [Comando] -> Char
+interprete str [] = head str  -- Posição inicial é 1, então retorna o primeiro caractere
+interprete str cmds = 
+    let (finalStr, finalPos) = executarComandos str 1 cmds
+    in finalStr !! (finalPos - 1)  -- Converte de posição 1-indexed para 0-indexed
+
+executarComandos :: String -> Int -> [Comando] -> (String, Int)
+executarComandos str pos [] = (str, pos)
+executarComandos str pos (cmd:cmds) = case cmd of
+    ParaFrente n -> executarComandos str (pos + n) cmds
+    ParaTras n   -> executarComandos str (max 1 (pos - n)) cmds
+    Escreva c    -> let newStr = take (pos - 1) str ++ [c] ++ drop pos str
+                    in executarComandos newStr pos cmds
 
 
 --3.3) (1.0) Escreva a mesma funcao anterior, mas que mostre toda a String apos a interpretacao
 --estadofinal "abcdefghijklmno" [] -------------------------------------------------------------------> "abcdefghijklmno"
 --estadofinal "abcdefghijklmno" [ParaFrente 5, Escreva 'x', ParaFrente 1]  ---------------------------> "abcdexghijklmno"
 -- estadofinal :: String -> [Comando] -> String
+estadofinal :: String -> [Comando] -> String
+estadofinal str [] = str
+estadofinal str cmds = fst (executarComandos str 1 cmds)
+
+{-4.1) (2.0) Escreva uma funcao que, dada uma lista qualquer, retorne uma lista de listas, tal que cada posicao da nova lista contem as posicoes que tinham o elemento naquela posicao da lista original.
+Exemplos:
+posicoes [1,2,3,1,4,2,3,1] ---> [ [1,4,8] , [2,6] , [3,7] , [5] ]
+posicoes "aaa"             ---> [ [1,2,3] ]
+posicoes [1,3,2]           ---> [ [1] , [3] , [2] ]
+posicoes :: Eq a => [a] -> [[Int]]
+-}
+posicoes :: Eq a => [a] -> [[Int]]
+posicoes xs = 
+    let elementos = nub xs
+        posicoesPorElemento elem = [i | (i, x) <- zip [1..] xs, x == elem]
+    in map posicoesPorElemento elementos
+  where
+    nub [] = []
+    nub (x:xs) = x : nub (filter (/= x) xs)
