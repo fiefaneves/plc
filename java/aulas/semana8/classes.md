@@ -59,7 +59,15 @@ public class Carro {
 ```
 
 ## Instanciando Classes
-Para criar um objeto a partir de uma classe:
+- Se definirmos o construtor com parametros e quisermos que o Carro() ainda seja aceito temos que criar também um construtor vazio
+```java
+Carro() {}
+
+Carro(String marca) {
+    this.marca = marca;
+}
+```
+- Para criar um objeto a partir de uma classe:
 ```java
 Carro meuCarro = new Carro();
 Carro outroCarro = new Carro("Toyota");
@@ -78,7 +86,8 @@ public class Carro {
 - Classe só pode ser acessada dentro do mesmo pacote
 ```java
 class Carro {
-    // código da classe
+    private velocidade;
+    private numerodeserie;
 }
 ```
 
