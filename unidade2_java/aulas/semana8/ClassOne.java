@@ -1,4 +1,4 @@
-package java.aulas.semana8;
+package unidade2_java.aulas.semana8;
 
 public class ClassOne {
 

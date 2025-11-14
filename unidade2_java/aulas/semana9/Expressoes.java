@@ -1,4 +1,4 @@
-package java.aulas.semana9;
+package unidade2_java.aulas.semana9;
 
 /*
        Expressão
