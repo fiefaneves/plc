@@ -1,4 +1,4 @@
-package java.aulas.semana1;
+package java.aulas.semana8;
 
 import java.util.ArrayList; //nome do tipo precedido pelos pacotes
 
