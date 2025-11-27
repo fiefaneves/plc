@@ -1,17 +1,21 @@
 package unidade2_java.lista;
 
 class Ingrediente {
-    String nome;
+    private String nome;
 
     public Ingrediente(String nome) {
         this.nome = nome;
     }
+
+    public String getNome() {
+        return nome;
+    }
 }
 
 class Balcao {
-    String nome; // nome do balcão
-    int capacidade; // capacidade máxima de ingredientes
-    java.util.Queue<Ingrediente> filaIngredientes; // fila de ingredientes no balcão
+    private String nome; // nome do balcão
+    private int capacidade; // capacidade máxima de ingredientes
+    private java.util.Queue<Ingrediente> filaIngredientes; // fila de ingredientes no balcão
 
     public Balcao(String nome, int capacidade) {
         this.nome = nome;
@@ -25,7 +29,7 @@ class Balcao {
                 wait();
             }
             filaIngredientes.add(ingrediente);
-            System.out.println("Ingrediente " + ingrediente.nome + " colocado no balcão " + nome);
+            System.out.println("Ingrediente " + ingrediente.getNome() + " colocado no balcão " + nome);
             notifyAll();
         }
     }
@@ -36,15 +40,15 @@ class Balcao {
                 wait();
             }
             Ingrediente ingrediente = filaIngredientes.poll();
-            System.out.println("Ingrediente " + ingrediente.nome + " retirado do balcão " + nome);
+            System.out.println("Ingrediente " + ingrediente.getNome() + " retirado do balcão " + nome);
             notifyAll();
         }
     }
 }
 
 class Aprendiz implements Runnable {
-    Balcao balcao;
-    int desempenho; // número de ingredientes preparados por iteração
+    private Balcao balcao;
+    private int desempenho; // número de ingredientes preparados por iteração
 
     public Aprendiz(Balcao balcao, int desempenho) {
         this.balcao = balcao;
@@ -65,8 +69,8 @@ class Aprendiz implements Runnable {
 }
 
 class Chefe implements Runnable {
-    Balcao balcao;
-    int desempenho; // número de ingredientes consumidos por iteração
+    private Balcao balcao;
+    private int desempenho; // número de ingredientes consumidos por iteração
 
     public Chefe(Balcao balcao, int desempenho) {
         this.balcao = balcao;
