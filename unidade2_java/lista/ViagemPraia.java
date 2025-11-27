@@ -6,14 +6,26 @@ interface Transporte {
 }
 
 class Viagem implements Transporte {
-    protected String destino;
-    protected double distanciaEmKm;
-    protected double precoBase; //valor minimo da viagem
+    private String destino;
+    private double distanciaEmKm;
+    private double precoBase; //valor minimo da viagem
 
     public Viagem(String destino, double distanciaEmKm, double precoBase) {
         this.destino = destino;
         this.distanciaEmKm = distanciaEmKm;
         this.precoBase = precoBase;
+    }
+
+    public String getDestino() {
+        return destino;
+    }
+
+    public double getDistanciaEmKm() {
+        return distanciaEmKm;
+    }
+
+    public double getPrecoBase() {
+        return precoBase;
     }
 
     @Override
@@ -34,12 +46,12 @@ class Onibus extends Viagem {
 
     @Override
     public double calcularValor() {
-        return precoBase + (distanciaEmKm * 0.30);
+        return getPrecoBase() + (getDistanciaEmKm() * 0.30);
     }
 
     @Override
     public String tempoDeViagem() {
-        int tempo = (int) Math.ceil(distanciaEmKm / 80);
+        int tempo = (int) Math.ceil(getDistanciaEmKm() / 80);
         return tempo + " horas";
     }
 }
@@ -51,12 +63,12 @@ class Aviao extends Viagem {
 
     @Override
     public double calcularValor() {
-        return precoBase + (distanciaEmKm * 1.00);
+        return getPrecoBase() + (getDistanciaEmKm() * 1.00);
     }
 
     @Override
     public String tempoDeViagem() {
-        double tempo = Math.round((distanciaEmKm / 800) * 10.0) / 10.0;
+        double tempo = Math.round((getDistanciaEmKm() / 800) * 10.0) / 10.0;
         return tempo + " horas";
     }
 }
@@ -68,12 +80,12 @@ class Carro extends Viagem {
 
     @Override
     public double calcularValor() {
-        return precoBase + (distanciaEmKm * 0.50);
+        return getPrecoBase() + (getDistanciaEmKm() * 0.50);
     }
 
     @Override
     public String tempoDeViagem() {
-        int tempo = (int) Math.ceil(distanciaEmKm / 100);
+        int tempo = (int) Math.ceil(getDistanciaEmKm() / 100);
         return tempo + " horas";
     }
 }
@@ -85,19 +97,19 @@ public class ViagemPraia {
         Viagem carro = new Carro("Salvador", 900, 100);
 
         System.out.println("Transporte: Ônibus");
-        System.out.println("Destino: " + onibus.destino);
+        System.out.println("Destino: " + onibus.getDestino());
         System.out.println("Preço da viagem: R$" + onibus.calcularValor());
         System.out.println("Tempo estimado: " + onibus.tempoDeViagem());
         System.out.println();
 
         System.out.println("Transporte: Avião");
-        System.out.println("Destino: " + aviao.destino);
+        System.out.println("Destino: " + aviao.getDestino());
         System.out.println("Preço da viagem: R$" + aviao.calcularValor());
         System.out.println("Tempo estimado: " + aviao.tempoDeViagem());
         System.out.println();
 
         System.out.println("Transporte: Carro");
-        System.out.println("Destino: " + carro.destino);
+        System.out.println("Destino: " + carro.getDestino());
         System.out.println("Preço da viagem: R$" + carro.calcularValor());
         System.out.println("Tempo estimado: " + carro.tempoDeViagem());
     }
