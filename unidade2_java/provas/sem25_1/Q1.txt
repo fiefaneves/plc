@@ -1,0 +1,43 @@
+1.  X ESTATICO
+    a.setX(5) -> x = 5
+    b.setX(7) -> x = 7
+    c.setX(9) -> x = 9
+
+    Y INSTANCIA
+    a.setY(4) -> a.y = 4
+    b.setY(6) -> b.y = 6
+    c.setY(9) -> c.y = 8
+
+    a => classe1
+    a) a.function(10) = 9 (x estatico) * 4 (a.y) = 36
+   
+    b => classe2
+    b) b.function(11) = 9 (x estatico) + 6 (b.y) + 11 (arg) = 26
+
+    c => classe2
+    c) c.function(12) = 9 (x estatico) + 8 (c.y) + 12 (arg) = 29
+
+    a = b   --> a.y = 6
+            --> a => classe2
+
+    b = c --> b.y = 8
+
+    a => classe2
+    d) a.function(13) = 9 + 6 + 13 = 28
+
+    b => classe2
+    e) b.function(14) = 9 + 8 + 14 = 31
+
+2.  a) private
+    b) public
+    c) public e protected
+    d) nenhum
+
+3.  a) interfaces e classes abstratas
+    b) classes
+    c) classes e clsases abstratas
+    d) nenhum
+
+4. F V V F F 
+
+        
