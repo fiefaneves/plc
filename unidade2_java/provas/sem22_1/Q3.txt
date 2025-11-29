@@ -1,0 +1,19 @@
+3.  a)  Uma abordagem possivel seria usar composição em vez de herança
+        Resposta no arquivo: /home/fmn/cc/plc/unidade2_java/provas/sem22_1/Banco_Q3.java
+    b)  Vantagens:
+            - redução de complexidade -> mantem a hierarquia de classes mais simples
+            - flexibilidade -> para adicionar mais um tipo a pessoa basta adicionar mais um tipo no enum
+            - evita problemas de herança (rigidez e dificuldade de reutilização)
+
+        Desvantagens:
+            - menor especialização -> composição nao permite metodos ou comportamentos especificos para pf ou pj
+            - validação adicional -> é necessario validar o tipo em varios pontos do codigo, o que pode aumentar a complexidade a longo prazo
+            - perda de polimorfismo -> com herança, é possivel tratar pf e pj como Pessoa e sobrescrever metodos. com composição, isso não é possivel de forma direta
+ 
+4.  c)  Escolhi criar um enum por conta de:
+            - Segurança de tipo, garante apenas tipos de moedas válidos (BRL e USD)
+            - Coesão e Encapsulamento -> agrupa de forma coesa os tipos de moedas e seus comportamentos associados
+            - Extensibilidade -> para incluir uma nova moeda basta adicionar na lista com sua taxa de conversão
+        Além disso, inclui dentro do Enum o metodo de conversão:
+            - Principio da Responsabilidade Unica -> a responsabilidade de saber como converter entre moedas é da propria moeda
+            - manutenibilidade -> se as taxas de cambio mudarem a alteração é feita em um unico local (o enum)
