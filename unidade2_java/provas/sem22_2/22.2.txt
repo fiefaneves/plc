@@ -1,0 +1,26 @@
+1.  B e B
+2.  A
+
+x => STATIC
+y => INSTANCIA
+
+metodo1 => STATIC
+metodo2 => INSTANCIA
+
+a => Classe1
+b => Classe1
+
+a.y = 5
+b.y = 6
+x = 1
+x = 2 <--------
+
+a.y = 5
+b.y = 6
+a.x = 2
+b.x = 2
+Classe1 x = 2
+
+3. D
+
+4. B
