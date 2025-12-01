@@ -1,0 +1,25 @@
+1.
+x -> STATIC
+y -> INSTANCIA
+
+a => Classe1
+b => Classe1
+
+a.y = 5
+b.y = 6
+
+x = 1
+x = 2
+
+a.x = 2
+b.x = 2
+
+2. E
+
+4. D
+
+5.  F V V
+    F V V
+    V F V
+    F V V 
+    F V F
